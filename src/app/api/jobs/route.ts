@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 
 export async function GET() { 
     // File: app/api/jobs/route.ts
-
-
     try {
         console.log("🟢 Fetching jobs from database...");
         const jobs = await prisma.job.findMany();
