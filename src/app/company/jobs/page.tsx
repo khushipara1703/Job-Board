@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/button";
 import { Card } from "@/components/card";
 
-// Fetch company job listings
+
 async function fetchJobs() {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/jobs`, {
@@ -21,16 +21,16 @@ export default async function CompanyJobs() {
 
     return (
         <div className="relative min-h-screen w-full">
-            {/* Background Image */}
+            
             <div 
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: "url('https://images.hdqwalls.com/wallpapers/bthumb/windows-12-blue-jb.jpg')" }}
             />
 
-            {/* Content Wrapper */}
+            
             <div className="relative z-10 flex flex-col items-center justify-start min-h-screen p-6">
                 <div className="bg-white/10 backdrop-blur-md p-8 rounded-lg shadow-lg max-w-3xl w-full mt-6">
-                    {/* Header */}
+                    
                     <div className="flex justify-between items-center mb-4">
                         <h1 className="text-2xl font-bold text-white">Your Posted Jobs</h1>
                         <Button>
@@ -40,7 +40,7 @@ export default async function CompanyJobs() {
                         </Button>
                     </div>
 
-                    {/* Job Listings */}
+                    
                     {jobs.length === 0 ? (
                         <p className="text-gray-300">No jobs posted yet.</p>
                     ) : (

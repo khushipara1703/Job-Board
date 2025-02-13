@@ -1,19 +1,30 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/input";
 import { Textarea } from "@/components/textarea";
 import { Button } from "@/components/button";
 
-export default function ApplyJob({ params }: { params: { jobId: string } }) {
+export default function ApplyJob({ params }: { params: Promise<{ jobid: string }> }) {
     const router = useRouter();
     const [formData, setFormData] = useState({ name: "", email: "", resume: "", coverLetter: "" });
+    const [jobId, setJobId] = useState<string | null>(null);
+
+    useEffect(() => {
+        async function unwrapParams() {
+            const resolvedParams = await params;
+            setJobId(resolvedParams.jobid);
+        }
+        unwrapParams();
+    }, [params]);
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+        if (!jobId) return;
+        
         await fetch("/api/applications", {
             method: "POST",
-            body: JSON.stringify({ ...formData, jobId: Number(params.jobId) }),
+            body: JSON.stringify({ ...formData, jobId: Number(jobId) }),
             headers: { "Content-Type": "application/json" },
         });
         router.push("/candidate/jobs");
@@ -52,7 +63,7 @@ export default function ApplyJob({ params }: { params: { jobId: string } }) {
                         onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })} 
                         className="bg-gray-800 text-white border-gray-600"
                     />
-                    <Button type="submit" className="w-full">Submit</Button>
+                   <Button type="submit" disabled={!jobId}>Submit</Button>
                 </form>
             </div>
         </div>

@@ -1,11 +1,17 @@
+import { notFound } from "next/navigation";
+
 async function fetchApplications(jobId: string) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/applications?jobId=${jobId}`);
     if (!res.ok) return [];
     return res.json();
 }
 
-export default async function Applications({ params }: { params: { id: string } }) {
-    const applications = await fetchApplications(params.id);
+export default async function Applications({ params }: { params: Promise<{ id: string }> }) {
+    // ✅ Ensure params.id is available before using it
+    
+    const resolvedParams = await params;
+
+    const applications = await fetchApplications(resolvedParams.id);
 
     return (
         <div className="relative min-h-screen w-full">
