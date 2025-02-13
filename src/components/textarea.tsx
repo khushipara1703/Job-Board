@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-empty-object-type */
+
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
 export function Textarea({ className, ...props }: TextareaProps) {

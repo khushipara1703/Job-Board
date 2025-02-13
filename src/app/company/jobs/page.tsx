@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from "next/link";
 import { Button } from "@/components/button";
 import { Card } from "@/components/card";
 
-
+export const dynamic = "force-dynamic";
 async function fetchJobs() {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/jobs`, {

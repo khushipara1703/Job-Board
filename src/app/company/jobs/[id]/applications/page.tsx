@@ -1,4 +1,6 @@
-import { notFound } from "next/navigation";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 
 async function fetchApplications(jobId: string) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/applications?jobId=${jobId}`);
